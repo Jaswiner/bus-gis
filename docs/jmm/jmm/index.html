@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  
+    
+    Jmm
+  
+ | GIS</title>
+
+
+
+<link rel="stylesheet" href="/bus/gis/book.min.b7d5ee4f671b06dde5fd61ab409a54048ba7759e99fed39ac32a7be45d4d92cd.css">
+
+
+<link rel="icon" href="/bus/gis/favicon.png" type="image/x-icon">
+
+
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body>
+  <input type="checkbox" style="display: none" id="menu-control" />
+  <main class="flex container">
+
+    <aside class="book-menu fixed">
+      <nav>
+<h2 class="book-brand">
+  <a href="https://jaswine.com/bus/gis">GIS</a>
+</h2>
+
+
+
+    
+  
+  
+  
+
+  <style>
+  nav ul a[href$="\2f bus\2fgis\2f docs\2fjmm\2fjmm\2f "] {
+      color: #004ed0;
+  }
+  </style>
+
+<ul>
+<li><strong><em>Java内存模型</em></strong>
+
+<ul>
+<li><a href="/bus/gis/docs/jmm/jmm/">JMM模型</a></li>
+<li><a href="/bus/gis/docs/jmm/hb/">Happens-before</a></li>
+</ul></li>
+<li><strong><em>垃圾回收</em></strong>
+
+<ul>
+<li><a href="/bus/gis/docs/gc/dead/">判断对象是否死亡</a></li>
+<li><a href="/bus/gis/docs/gc/algo_collect/">垃圾回收算法</a></li>
+<li><a href="/bus/gis/docs/gc/jvm_gc/">JVM垃圾收集器</a></li>
+</ul></li>
+<li><strong><em>类的那些事</em></strong>
+
+<ul>
+<li><a href="/bus/gis/docs/class/f_class/">类文件</a></li>
+<li><a href="/bus/gis/docs/class/classload/">类加载</a></li>
+<li><a href="/bus/gis/docs/class/f_object/">对象及其生命周期</a></li>
+</ul></li>
+<li><strong><em>常用JVM参数</em></strong>
+
+<ul>
+<li><a href="#">内存参数</a></li>
+<li><a href="#">GC参数</a></li>
+</ul></li>
+<li><strong><em>JVM工具</em></strong>
+
+<ul>
+<li><a href="#">jps:查看进程状况</a></li>
+<li><a href="#">jstack:进程堆栈信息</a></li>
+<li><a href="#">jmap:内存映射工具</a></li>
+<li><a href="#">jhat:</a></li>
+<li><a href="#">jstat:虚拟机统计信息监视工具</a></li>
+<li><a href="/bus/gis/docs/tools/jconsole/">JConsole:实时监视</a></li>
+<li><a href="/bus/gis/docs/tools/jconsole/">jProfile:实时监视</a></li>
+<li><a href="/bus/gis/docs/tools/jconsole/">MAT:实时监视</a></li>
+</ul></li>
+<li><strong><em>JVM故障&amp;调优</em></strong>
+
+<ul>
+<li><a href="#">OOM错误</a>
+<br /></li>
+</ul></li>
+</ul>
+
+
+
+
+
+</nav>
+
+
+
+    </aside>
+
+    <div class="book-page">
+      <header class="align-center justify-between book-header">
+  <label for="menu-control">
+    <img src="/bus/gis/svg/menu.svg" alt="Menu" />
+  </label>
+  <strong>
+  
+    
+    Jmm
+  
+</strong>
+</header>
+
+      
+<article class="markdown">
+
+<h1 id="java虚拟机内存模型">Java虚拟机内存模型</h1>
+
+<hr />
+
+<ul>
+<li><strong><em>参考:</em></strong>
+
+<ul>
+<li><a href="https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-2.html#jvms-2.5">JVM运行时数据区域 - Java SE8规范</a></li>
+</ul></li>
+</ul>
+
+<hr />
+
+<h2 id="为什么会有java内存模型">为什么会有Java内存模型</h2>
+
+<p><code>Java</code>实现“一次编写，到处运行”的特性就是依赖<code>JVM</code>，<code>JVM</code>只要对<code>class</code>文件负责就好，无论你的源代码是<code>Java</code>还是<code>Kotlin</code>只要编译成为符合JVM规范的<code>class</code>文件就可以了。</p>
+
+<p><code>JVM</code>是一个虚拟机，有自己的指令集和内存管理，不同的操作系统和底层硬件对于内存的操作可能存在差异，内存中存放的就是运行时的数据，如果因为差异导致数据错误是不可以的。</p>
+
+<h2 id="java内存模型">Java内存模型</h2>
+
+<p><code>JVM</code>规范将运行时内存分成如下:</p>
+
+<ul>
+<li>线程私有:
+
+<ul>
+<li>程序计数器</li>
+<li>本地方法栈</li>
+<li>虚拟机栈</li>
+</ul></li>
+<li>线程共有:
+
+<ul>
+<li>方法区</li>
+<li>堆</li>
+</ul></li>
+</ul>
+
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">线程私有</th>
+<th align="left">作用</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="left">程序计数器</td>
+<td align="left">是</td>
+<td align="left">记录代码执行的位置</td>
+</tr>
+
+<tr>
+<td align="left">本地方法栈</td>
+<td align="left">是</td>
+<td align="left">记录<code>native</code>方法</td>
+</tr>
+
+<tr>
+<td align="left">虚拟机栈</td>
+<td align="left">是</td>
+<td align="left">函数压栈、局部变量</td>
+</tr>
+
+<tr>
+<td align="left">方法区</td>
+<td align="left">否</td>
+<td align="left"></td>
+</tr>
+
+<tr>
+<td align="left">堆</td>
+<td align="left">否</td>
+<td align="left">对象存放的地方</td>
+</tr>
+
+<tr>
+<td align="left">常量池</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="jmm和高效并发">JMM和高效并发</h2>
+
+<p>并发不安全就是因为在并发的情况下数据被不正确的修改了，数据存放在各种寄存器中(CPU缓存，ROM，RAM)，程序使用数据的过程简化为三步</p>
+
+<ul>
+<li>1.读数据</li>
+<li>2.计算</li>
+<li>3.写回数据</li>
+</ul>
+</article>
+
+      
+
+      
+    </div>
+
+    
+  
+
+  <aside class="book-toc level-3 fixed">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#java虚拟机内存模型">Java虚拟机内存模型</a>
+<ul>
+<li><a href="#为什么会有java内存模型">为什么会有Java内存模型</a></li>
+<li><a href="#java内存模型">Java内存模型</a></li>
+<li><a href="#jmm和高效并发">JMM和高效并发</a></li>
+</ul></li>
+</ul>
+</nav>
+  </aside>
+
+
+
+  </main>
+  
+  
+  
+</body>
+
+</html>

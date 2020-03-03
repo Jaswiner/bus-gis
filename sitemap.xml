@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://jaswine.com/bus/gis/docs/class/classload/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://jaswine.com/bus/gis/docs/class/f_class/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://jaswine.com/bus/gis/docs/class/f_object/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://jaswine.com/bus/gis/docs/gc/algo_collect/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://jaswine.com/bus/gis/docs/gc/dead/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://jaswine.com/bus/gis/docs/gc/jvm_gc/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://jaswine.com/bus/gis/docs/jmm/hb/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://jaswine.com/bus/gis/docs/jmm/jmm/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://jaswine.com/bus/gis/docs/params/gc/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://jaswine.com/bus/gis/docs/params/memory/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://jaswine.com/bus/gis/docs/tools/jconsole/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://jaswine.com/bus/gis/categories/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://jaswine.com/bus/gis/docs/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://jaswine.com/bus/gis/</loc>
+  </url>
+  
+  <url>
+    <loc>https://jaswine.com/bus/gis/tags/</loc>
+    <priority>0</priority>
+  </url>
+  
+</urlset>
